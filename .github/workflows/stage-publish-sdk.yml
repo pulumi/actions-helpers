@@ -1,0 +1,47 @@
+name: Publish-SDK
+
+on:
+    workflow_call:
+        inputs:
+            version:
+                required: true
+                type: string
+                description: Version to be used to publish the SDKs
+            prerelease:
+                required: true
+                type: boolean
+                description: Indicates if we're doing a pre- or proper release.
+
+env:
+    GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
+    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+    publish-nodejs-sdk:
+        runs-on: ubuntu-latest
+        name: publish-nodejs-sdk
+        steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v4
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  registry-url: https://registry.npmjs.org
+            - name: Calculate tag
+              id: tag
+              run: echo "tag=$(./.github/scripts/calculate-npm-tag.sh "${{ inputs.version }}")" >> "$GITHUB_OUTPUT"
+            - name: Build Node.JS SDK
+              run: |
+                  npm i && npm run build
+                  cp README.md LICENSE package.json package-lock.json ./bin/
+                  sed -i.bak -e "s/\${VERSION}/${VERSION}/g" ./bin/package.json
+                  rm ./bin/package.json.bak
+              env:
+                  VERSION: ${{ inputs.version }}
+            - name: Publish Node.JS SDK
+              working-directory: bin
+              run: npm publish --tag "${{ steps.tag.outputs.tag }}"
+              env:
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

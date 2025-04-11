@@ -1,0 +1,23 @@
+name: Lint
+
+on:
+    workflow_call:
+
+permissions: read-all
+
+env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v2
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  registry-url: https://registry.npmjs.org
+            - name: Run Lint
+              run: npm i && npm run lint
