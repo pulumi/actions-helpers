@@ -7,13 +7,6 @@ on:
             - v*.*.*
             - "!v*.*.*-**"
 
-env:
-    ESC_ACTION_OIDC_AUTH: true
-    ESC_ACTION_OIDC_ORGANIZATION: pulumi
-    ESC_ACTION_OIDC_REQUESTED_TOKEN_TYPE: urn:pulumi:token-type:access_token:organization
-    ESC_ACTION_ENVIRONMENT: imports/github-secrets
-    ESC_ACTION_EXPORT_ENVIRONMENT_VARIABLES: GITHUB_TOKEN=PULUMI_BOT_TOKEN
-
 jobs:
     lint:
         uses: ./.github/workflows/stage-lint.yml
@@ -30,14 +23,12 @@ jobs:
         secrets: inherit
 
     github-release:
+        needs: [publish-sdks]
         runs-on: ubuntu-latest
         permissions:
             contents: write
 
         steps:
-            - name: Fetch secrets from ESC
-              id: esc-secrets
-              uses: pulumi/esc-action@v3
             - name: Checkout code
               uses: actions/checkout@v7
 
