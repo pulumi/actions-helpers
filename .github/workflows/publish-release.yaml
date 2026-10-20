@@ -37,20 +37,14 @@ jobs:
         steps:
             - name: Fetch secrets from ESC
               id: esc-secrets
-              uses: pulumi/esc-action@v1
+              uses: pulumi/esc-action@v3
             - name: Checkout code
-              uses: actions/checkout@v2
-
-            - name: Extract Tag Name
-              id: extract_tag
-              run: |
-                  TAG_NAME=${GITHUB_REF#refs/tags/}
-                  echo "::set-output name=tag_name::$TAG_NAME"
+              uses: actions/checkout@v7
 
             - name: Create Release
-              uses: softprops/action-gh-release@v1
+              uses: softprops/action-gh-release@v3
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  name: ${{ steps.extract_tag.outputs.tag_name }}
+                  name: ${{ github.ref_name }}
                   body_path: CHANGELOG_PENDING.md
