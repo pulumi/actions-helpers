@@ -42,7 +42,7 @@ jobs:
               run: |
                   npm i && npm run build
                   cp README.md LICENSE package.json package-lock.json ./bin/
-                  sed -i.bak -e "s/\${VERSION}/${VERSION}/g" ./bin/package.json
+                  sed -i.bak -e "s/\${VERSION}/${VERSION#v}/g" ./bin/package.json
                   rm ./bin/package.json.bak
               env:
                   VERSION: ${{ inputs.version }}
