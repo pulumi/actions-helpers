@@ -1,9 +1,9 @@
 import * as core from "@actions/core";
-import { type OidcLoginConfig } from "./config";
-import { exchangeIdToken, buildPulumiAudience } from "./oauth2";
-import { fetchOIDCToken } from "./gh";
+import { type OidcLoginConfig } from "./config.js";
+import { exchangeIdToken, buildPulumiAudience } from "./oauth2.js";
+import { fetchOIDCToken } from "./gh.js";
 
-export * from "./config";
+export * from "./config.js";
 
 export async function ensureAccessToken(config: OidcLoginConfig): Promise<string> {
     const audience = buildPulumiAudience(config.organizationName);

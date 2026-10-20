@@ -1,6 +1,6 @@
-import * as nock from "nock";
-import { buildPulumiAudience, exchangeIdToken } from "./oauth2";
-import { type OidcLoginConfig } from "./config";
+import nock from "nock";
+import { buildPulumiAudience, exchangeIdToken } from "./oauth2.js";
+import { type OidcLoginConfig } from "./config.js";
 
 describe("oauth2.ts", () => {
     describe("buildPulumiAudience", () => {
