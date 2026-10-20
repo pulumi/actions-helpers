@@ -1,0 +1,1 @@
+- Publish spec-compliant ESM with an `exports` map

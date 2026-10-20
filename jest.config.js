@@ -1,11 +1,11 @@
+import { createDefaultEsmPreset } from "ts-jest";
+
 export default {
-    preset: "ts-jest",
+    ...createDefaultEsmPreset(),
     testEnvironment: "node",
     collectCoverageFrom: ["src/**/*.ts"],
     testPathIgnorePatterns: [".*/dist/.*", ".*dist.*"],
-    globals: {
-        "ts-jest": {
-            tsconfig: "tsconfig.json",
-        },
+    moduleNameMapper: {
+        "^(\\.{1,2}/.*)\\.js$": "$1",
     },
 };

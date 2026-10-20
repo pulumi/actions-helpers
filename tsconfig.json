@@ -2,8 +2,9 @@
     "compilerOptions": {
         "rootDir": "./src",
         "outDir": "bin",
-        "target": "es2015",
-        "moduleResolution": "node",
+        "target": "es2022",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
         "allowSyntheticDefaultImports": true,
         "allowJs": true,
         "importHelpers": true,
@@ -17,6 +18,7 @@
         "noImplicitAny": false,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "isolatedModules": true,
         "declaration": true
     },
     "include": ["src/**/*.ts"],

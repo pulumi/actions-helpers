@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse, type AxiosError } from "axios";
-import { type OidcLoginConfig } from "./config";
+import { type OidcLoginConfig } from "./config.js";
 
 export interface PulumiOauth2Request {
     grant_type: string;

@@ -12,12 +12,24 @@
     },
     "license": "Apache-2.0",
     "author": "",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./index.d.ts",
+            "default": "./index.js"
+        },
+        "./auth": {
+            "types": "./auth/index.d.ts",
+            "default": "./auth/index.js"
+        }
+    },
     "main": "index.js",
+    "types": "index.d.ts",
     "scripts": {
         "format": "prettier --write . '!./bin/**'",
         "lint": "eslint --ext .ts ./src",
         "build": "rm -rf ./bin && tsc",
-        "test": "jest --coverage ./src/**/*.spec.ts"
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage ./src/**/*.spec.ts"
     },
     "prettier": {
         "printWidth": 120,
