@@ -1,3 +1,4 @@
 - Publish spec-compliant ESM with an `exports` map
 - Update `@actions/core` to v3
 - Move `jest` to `devDependencies`
+- Retry `getIDToken` up to 3 times
