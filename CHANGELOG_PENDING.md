@@ -1,1 +1,0 @@
-- Retry `getIDToken` up to 3 times
